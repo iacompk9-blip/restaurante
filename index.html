@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111111">
+  <meta name="description" content="Mistura Boa Restaurante — comida boa todo dia.">
+  <title>Mistura Boa Restaurante</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --red:#c9161d; --yellow:#ffc400; --black:#0d0d0d; --cream:#fff7e7;
+      --muted:#bdb7ae; --card:#171717; --line:rgba(255,196,0,.28);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:Montserrat,Arial,sans-serif;background:var(--black);color:#fff;overflow-x:hidden}
+    a{text-decoration:none;color:inherit}
+    .container{width:min(1120px,92%);margin:auto}
+    .topbar{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(13,13,13,.84);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.08)}
+    nav{height:72px;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800}
+    .brand-dot{width:42px;height:42px;border-radius:50%;background:var(--red);border:3px solid var(--yellow);display:grid;place-items:center;font-size:13px}
+    .brand span{line-height:1}
+    .brand small{display:block;font-size:9px;letter-spacing:2px;color:#ddd;margin-top:4px}
+    .navlinks{display:flex;gap:26px;font-size:13px;font-weight:700}
+    .navlinks a:hover{color:var(--yellow)}
+    .navcta{background:var(--red);padding:12px 17px;border-radius:999px;border:1px solid #ef3a40;font-size:12px;font-weight:800}
+    .hero{min-height:760px;display:flex;align-items:center;position:relative;overflow:hidden;background:linear-gradient(90deg,rgba(0,0,0,.9),rgba(0,0,0,.35)),url('assets/fachada.jpg') center/cover}
+    .hero:after{content:"";position:absolute;inset:auto 0 0;height:180px;background:linear-gradient(transparent,var(--black));pointer-events:none}
+    .hero-content{padding-top:70px;position:relative;z-index:2;max-width:680px}
+    .eyebrow{display:inline-flex;align-items:center;gap:9px;background:rgba(255,196,0,.12);border:1px solid var(--line);color:var(--yellow);padding:9px 14px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase}
+    h1{font-size:clamp(44px,8vw,84px);line-height:.94;margin:22px 0 18px;font-weight:800;letter-spacing:-3px}
+    h1 span{color:var(--yellow)}
+    .hero p{font-size:17px;line-height:1.7;color:#e7e1d9;max-width:570px}
+    .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:15px 21px;border-radius:12px;font-weight:800;font-size:13px;transition:.2s}
+    .btn-primary{background:var(--yellow);color:#111}
+    .btn-primary:hover{transform:translateY(-2px)}
+    .btn-secondary{border:1px solid rgba(255,255,255,.22);background:rgba(0,0,0,.3)}
+    section{padding:82px 0}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:28px}
+    .kicker{color:var(--yellow);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:9px}
+    h2{font-size:clamp(30px,5vw,48px);letter-spacing:-1.5px}
+    .section-head p{color:var(--muted);max-width:420px;line-height:1.6;font-size:13px}
+    .day-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+    .day-card{position:relative;border-radius:18px;overflow:hidden;background:#111;border:1px solid rgba(255,255,255,.09);cursor:pointer;transition:.25s}
+    .day-card:hover{transform:translateY(-5px);border-color:var(--yellow)}
+    .day-card img{width:100%;display:block;aspect-ratio:1/1.48;object-fit:cover}
+    .day-label{position:absolute;left:10px;top:10px;background:var(--red);border:2px solid var(--yellow);padding:8px 10px;border-radius:10px;font-weight:800;font-size:11px}
+    .day-foot{padding:12px 13px 14px;background:linear-gradient(#151515,#0c0c0c)}
+    .day-foot strong{font-size:12px}
+    .day-foot span{display:block;color:#aaa;font-size:10px;margin-top:5px}
+    .menu{background:linear-gradient(180deg,#0d0d0d,#15110b)}
+    .products{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+    .product{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:18px}
+    .product h3{font-size:16px;color:var(--yellow);margin-bottom:8px}
+    .product p{font-size:12px;color:#aaa;line-height:1.5;min-height:36px}
+    .price-row{display:flex;align-items:center;justify-content:space-between;margin-top:17px}
+    .price{font-weight:800;font-size:18px}
+    .add{background:var(--red);border:0;color:#fff;padding:10px 13px;border-radius:10px;font-weight:800;cursor:pointer}
+    
+    .night-highlights{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px}
+    .night-highlight{background:#111;border:1px solid rgba(255,255,255,.09);border-radius:18px;overflow:hidden;transition:.2s}
+    .night-highlight:hover{transform:translateY(-4px);border-color:var(--yellow)}
+    .night-highlight img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
+    .night-highlight div{padding:12px}
+    .night-highlight strong{display:block;font-size:12px;line-height:1.35}
+    .night-highlight span{display:block;color:var(--yellow);font-weight:800;font-size:15px;margin-top:7px}
+    .night-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 20px}
+    .night-tab{border:1px solid rgba(255,255,255,.13);background:#151515;color:#aaa;border-radius:999px;padding:9px 13px;font-size:11px;font-weight:800}
+    .night-tab.active{background:var(--red);border-color:#ef3a40;color:#fff}
+    .night-gallery{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
+    .night-gallery img{width:100%;display:block;border-radius:18px;border:1px solid rgba(255,255,255,.1)}
+
+.about{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center}
+    .about img{width:100%;border-radius:24px;border:1px solid rgba(255,255,255,.12)}
+    .about-copy p{color:#bbb;line-height:1.8;font-size:14px;margin:18px 0}
+    .info{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+    .info-card{padding:17px;border:1px solid rgba(255,255,255,.1);border-radius:15px;background:#151515}
+    .info-card strong{display:block;color:var(--yellow);font-size:11px;margin-bottom:6px}
+    .info-card span{font-size:12px;color:#ddd}
+    footer{padding:34px 0 100px;border-top:1px solid rgba(255,255,255,.08);color:#aaa;font-size:12px}
+    .floating{position:fixed;right:18px;bottom:18px;z-index:30;background:#20d366;color:#fff;border-radius:999px;padding:15px 19px;font-weight:800;font-size:12px;box-shadow:0 12px 35px rgba(0,0,0,.45)}
+    .cart{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(130px);z-index:25;width:min(520px,92%);background:#191919;border:1px solid var(--yellow);border-radius:18px;padding:15px 16px;box-shadow:0 20px 60px rgba(0,0,0,.55);transition:.25s}
+    .cart.show{transform:translateX(-50%) translateY(0)}
+    .cart-top{display:flex;justify-content:space-between;align-items:center}
+    .cart-top strong{font-size:13px}
+    .cart-count{color:var(--yellow);font-weight:800}
+    .cart-items{max-height:150px;overflow:auto;margin:10px 0}
+    .cart-item{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.07);font-size:11px}
+    .cart-total{display:flex;justify-content:space-between;font-weight:800;margin:11px 0}
+    .cart button{width:100%;border:0;border-radius:11px;padding:13px;background:var(--yellow);font-weight:800;cursor:pointer}
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:end;justify-content:center;z-index:40}
+    .modal.open{display:flex}
+    .modal-box{width:min(560px,100%);max-height:88vh;overflow:auto;background:#151515;border-radius:22px 22px 0 0;padding:22px;border:1px solid rgba(255,255,255,.1)}
+    .modal-box h3{font-size:22px;margin-bottom:7px}
+    .modal-box p{color:#aaa;font-size:12px;margin-bottom:15px}
+    .modal-box input{width:100%;padding:14px;border-radius:10px;border:1px solid #333;background:#0d0d0d;color:#fff;margin-bottom:10px}
+    .modal-actions{display:flex;gap:10px}
+    .modal-actions button{flex:1;padding:13px;border-radius:10px;border:0;font-weight:800;cursor:pointer}
+    .cancel{background:#2a2a2a;color:#fff}
+    .send{background:#20d366;color:#fff}
+    @media(max-width:850px){.navlinks{display:none}.hero{min-height:700px}.day-grid{grid-template-columns:repeat(2,1fr)}.products{grid-template-columns:1fr 1fr}.about{grid-template-columns:1fr}.info{grid-template-columns:1fr}}
+    @media(max-width:520px){.day-grid{grid-template-columns:1fr 1fr}.products{grid-template-columns:1fr}section{padding:64px 0}.hero-content{padding-top:100px}.brand span{font-size:13px}}
+  
+    @media(max-width:900px){
+      .day-grid{grid-template-columns:repeat(2,1fr)}
+      .night-highlights{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:620px){
+      .day-grid{grid-template-columns:1fr 1fr}
+      .night-highlights{grid-template-columns:1fr 1fr}
+      .night-gallery{grid-template-columns:1fr}
+      .navlinks{display:none}
+    }
+
+    /* Ajustes de responsividade e blocos de ofertas */
+    img{max-width:100%;height:auto}
+    .night-feature{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:8px 0 26px}
+    .promo-card{background:#111;border:1px solid rgba(255,255,255,.09);border-radius:18px;overflow:hidden}
+    .promo-card img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+    .promo-copy{padding:15px}
+    .promo-copy h3{font-size:15px;line-height:1.35;margin-bottom:6px}
+    .promo-copy p{font-size:11px;line-height:1.5;color:#aaa;min-height:32px}
+    .promo-price{font-size:18px;font-weight:800;color:var(--yellow);margin:12px 0}
+    .night-note{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 18px;margin:8px 0 26px;background:#111;border:1px solid rgba(255,255,255,.09);border-radius:16px}
+    .night-note strong{font-size:13px}.night-note span{font-size:11px;color:#aaa;line-height:1.5}
+    @media(max-width:900px){.night-feature{grid-template-columns:1fr 1fr}}
+    @media(max-width:620px){
+      body{overflow-x:hidden}
+      .container{width:min(100% - 28px,1120px)}
+      nav{height:64px}
+      .brand-dot{width:38px;height:38px;font-size:12px}
+      .brand span{font-size:12px}.brand small{font-size:8px;letter-spacing:1.5px}
+      .navcta{padding:10px 12px;font-size:10px}
+      .hero{min-height:650px;background-position:center}
+      .hero-content{padding-top:85px}
+      h1{font-size:clamp(40px,13vw,58px);letter-spacing:-2px}
+      .hero p{font-size:14px;line-height:1.55}
+      .actions{display:grid;grid-template-columns:1fr;gap:9px}
+      .btn{width:100%;padding:14px 16px}
+      section{padding:52px 0}
+      .section-head{display:block;margin-bottom:22px}.section-head p{margin-top:10px}
+      .day-grid{grid-template-columns:1fr 1fr;gap:10px}
+      .day-card{border-radius:14px}.day-label{font-size:9px;padding:6px 8px}.day-foot{padding:10px}.day-foot strong{font-size:10px}.day-foot span{font-size:9px}
+      .products{grid-template-columns:1fr;gap:10px}.product{padding:15px;border-radius:15px}
+      .night-feature{grid-template-columns:1fr;gap:10px}
+      .promo-card{border-radius:15px}.promo-card img{aspect-ratio:16/10}.promo-copy{padding:14px}
+      .night-note{display:block}.night-note .btn{margin-top:12px}
+      .night-gallery{grid-template-columns:1fr}
+      .about{gap:24px}
+      .info{grid-template-columns:1fr}
+      .floating{right:12px;bottom:12px;padding:13px 15px;font-size:11px}
+      .cart{bottom:10px;width:calc(100% - 20px);padding:13px;border-radius:16px;max-height:55vh}
+      .cart-items{max-height:110px}
+      .modal-box{max-height:92vh;padding:18px;border-radius:18px 18px 0 0}
+      #dayContent>div{grid-template-columns:1fr !important}
+    }
+
+
+
+/* CORREÇÃO: imagens das promoções sem corte */
+.promo-card img{
+  width:100%;
+  height:auto !important;
+  aspect-ratio:auto !important;
+  object-fit:contain !important;
+  display:block;
+}
+@media(max-width:620px){
+  .promo-card img{
+    height:auto !important;
+    aspect-ratio:auto !important;
+    object-fit:contain !important;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <nav class="container">
+    <a class="brand" href="#">
+      <div class="brand-dot">MB</div>
+      <span>MISTURA BOA<small>RESTAURANTE</small></span>
+    </a>
+    <div class="navlinks">
+      <a href="#semana">Almoço</a><a href="#noite">Lanches à noite</a><a href="#semana">Prato do dia</a><a href="#sobre">Restaurante</a>
+    </div>
+    <a class="navcta" href="https://wa.me/553197171210?text=Olá%2C%20Mistura%20Boa!%20Gostaria%20de%20fazer%20um%20pedido." target="_blank">PEDIR AGORA</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero">
+  <div class="container hero-content">
+    <div class="eyebrow">Comida boa todo dia</div>
+    <h1>Mistura <span>Boa</span><br>Restaurante.</h1>
+    <p>Comida caseira, sabor de verdade e aquele atendimento que você já conhece. Escolha seu prato, monte seu pedido e fale com a gente pelo WhatsApp.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="#semana">🍽️ VER CARDÁPIO</a>
+      <a class="btn btn-secondary" href="https://wa.me/553197171210?text=Olá%2C%20Mistura%20Boa!%20Quero%20fazer%20um%20pedido." target="_blank">💬 PEDIR NO WHATSAPP</a>
+    </div>
+  </div>
+</section>
+
+<section id="semana">
+  <div class="container">
+    <div class="section-head">
+      <div><div class="kicker">De segunda a sábado</div><h2>Prato do dia</h2></div>
+      <p>Veja a opção especial de cada dia. O self-service é por peso: <strong style="color:#fff">R$ 55,90/kg</strong>.</p>
+    </div>
+    <div class="day-grid">
+      <article class="day-card" onclick="openDay('Segunda-feira')"><img src="assets/segunda.jpg" alt="Prato do dia de segunda-feira"><div class="day-label">SEG</div><div class="day-foot"><strong>Arroz, feijão, maionese...</strong><span>R$ 55,90/kg no self-service</span></div></article>
+      <article class="day-card" onclick="openDay('Terça-feira')"><img src="assets/terca.jpg" alt="Prato do dia de terça-feira"><div class="day-label">TER</div><div class="day-foot"><strong>Arroz, feijão, macarrão...</strong><span>R$ 55,90/kg no self-service</span></div></article>
+      <article class="day-card" onclick="openDay('Quarta-feira')"><img src="assets/quarta.jpg" alt="Prato do dia de quarta-feira"><div class="day-label">QUA</div><div class="day-foot"><strong>Arroz, feijão, macarrão...</strong><span>R$ 55,90/kg no self-service</span></div></article>
+      <article class="day-card" onclick="openDay('Quinta-feira')"><img src="assets/quinta.jpg" alt="Prato do dia de quinta-feira"><div class="day-label">QUI</div><div class="day-foot"><strong>Arroz, feijão, salpicão...</strong><span>R$ 55,90/kg no self-service</span></div></article>
+      <article class="day-card" onclick="openDay('Sexta-feira')"><img src="assets/sexta.jpg" alt="Feijoada de sexta-feira"><div class="day-label">SEX</div><div class="day-foot"><strong>Feijoada completa</strong><span>R$ 55,90/kg no self-service</span></div></article>
+      <article class="day-card" onclick="openDay('Sábado')"><img src="assets/sabado.jpg" alt="Prato do dia de sábado"><div class="day-label">SÁB</div><div class="day-foot"><strong>Arroz, tropeiro, bife...</strong><span>R$ 55,90/kg no self-service</span></div></article>
+    </div>
+  </div>
+</section>
+
+
+<section id="cardapio" class="menu">
+  <div class="container">
+    <div class="section-head">
+      <div><div class="kicker">Também tem</div><h2>Monte seu pedido</h2></div>
+      <p>Escolha o tamanho e adicione ao carrinho. No próximo passo, o pedido é enviado já organizado para o WhatsApp.</p>
+    </div>
+    <div class="products">
+      <article class="product"><h3>Tropeiro</h3><p>Arroz, ovo e torresmo.</p><div class="price-row"><span class="price">R$ 11,90</span><button class="add" onclick="add('Tropeiro pequeno',11.90)">+ Adicionar</button></div><div class="price-row"><span class="price">R$ 16,90</span><button class="add" onclick="add('Tropeiro grande',16.90)">+ Adicionar</button></div></article>
+      <article class="product"><h3>Só tropeiro</h3><p>Porção de tropeiro.</p><div class="price-row"><span class="price">R$ 11,90</span><button class="add" onclick="add('Só tropeiro pequeno',11.90)">+ Adicionar</button></div><div class="price-row"><span class="price">R$ 16,90</span><button class="add" onclick="add('Só tropeiro grande',16.90)">+ Adicionar</button></div></article>
+      <article class="product"><h3>Marmitex</h3><p>Pequeno ou grande.</p><div class="price-row"><span class="price">R$ 18,90</span><button class="add" onclick="add('Marmitex pequeno',18.90)">+ Adicionar</button></div><div class="price-row"><span class="price">R$ 19,90</span><button class="add" onclick="add('Marmitex grande',19.90)">+ Adicionar</button></div></article>
+      <article class="product"><h3>Prato feito</h3><p>Opção completa para o almoço.</p><div class="price-row"><span class="price">R$ 18,90</span><button class="add" onclick="add('Prato feito pequeno',18.90)">+ Adicionar</button></div><div class="price-row"><span class="price">R$ 19,90</span><button class="add" onclick="add('Prato feito grande',19.90)">+ Adicionar</button></div></article>
+      <article class="product"><h3>Marmitex (PF)</h3><p>Pequeno ou grande.</p><div class="price-row"><span class="price">R$ 18,90</span><button class="add" onclick="add('Marmitex PF pequeno',18.90)">+ Adicionar</button></div><div class="price-row"><span class="price">R$ 19,90</span><button class="add" onclick="add('Marmitex PF grande',19.90)">+ Adicionar</button></div></article>
+      <article class="product"><h3>Mexidão</h3><p>Uma opção caprichada para matar a fome.</p><div class="price-row"><span class="price">R$ 11,90</span><button class="add" onclick="add('Mexidão pequeno',11.90)">+ Adicionar</button></div><div class="price-row"><span class="price">R$ 16,90</span><button class="add" onclick="add('Mexidão grande',16.90)">+ Adicionar</button></div></article>
+    </div>
+  </div>
+</section>
+
+<section id="noite" class="night">
+  <div class="container">
+    <div class="section-head">
+      <div><div class="kicker">A partir da noite</div><h2>Lanches</h2></div>
+      <p>Opções para pedir no delivery pelo WhatsApp. Todos os itens abaixo entram no mesmo carrinho.</p>
+    </div>
+
+    <div class="night-tabs">
+      <span>🍔 Lanches</span><span>🔥 Artesanais</span><span>🥤 Bebidas</span><span>⭐ Combos</span>
+    </div>
+
+    <div class="night-feature">
+      <article class="promo-card">
+        <img src="assets/combo_x_tudo.jpg" alt="Combo com 2 X-tudo e Coca-Cola 1 litro">
+        <div class="promo-copy">
+          <h3>Combo 2 X-tudo + Coca 1L</h3>
+          <p>Combo promocional para compartilhar.</p>
+          <div class="promo-price">R$ 49,90</div>
+          <div class="price-row"><span></span><button class="add" onclick="add('Combo 2 X-tudo + Coca 1L',49.90)">+ Adicionar</button></div>
+        </div>
+      </article>
+      <article class="promo-card">
+        <img src="assets/combo_hamburguer.jpg" alt="Combo com 2 hambúrgueres e Coca-Cola 600 ml">
+        <div class="promo-copy">
+          <h3>Combo 2 Hambúrgueres + Coca 600ml</h3>
+          <p>Dois hambúrgueres com refrigerante.</p>
+          <div class="promo-price">R$ 29,90</div>
+          <div class="price-row"><span></span><button class="add" onclick="add('Combo 2 Hambúrgueres + Coca 600ml',29.90)">+ Adicionar</button></div>
+        </div>
+      </article>
+      <article class="promo-card">
+        <img src="assets/combo_xbacon.jpg" alt="Combo 2 X-bacon e Guaraná Antarctica 1 litro">
+        <div class="promo-copy">
+          <h3>Combo 2 X-bacon + Guaraná 1L</h3>
+          <p>Dois X-bacon com Guaraná Antarctica de 1 litro.</p>
+          <div class="promo-price">R$ 39,90</div>
+          <div class="price-row"><span></span><button class="add" onclick="add('Combo 2 X-bacon + Guaraná 1L',39.90)">+ Adicionar</button></div>
+        </div>
+      </article>
+    </div>
+
+    <div class="section-head" style="margin-top:25px">
+      <div><div class="kicker">Artesanais</div><h2>Feitos com bife artesanal</h2></div>
+      <p>Todos os lanches artesanais acompanham refrigerante 200ml, conforme o cardápio enviado.</p>
+    </div>
+    <div class="products">
+      <article class="product"><h3>Hambúrguer artesanal 120g</h3><p>Pão de brioche, bife artesanal, alface, tomate e batata palha.</p><div class="price-row"><span class="price">R$ 17,90</span><button class="add" onclick="add('Hambúrguer artesanal 120g',17.90)">+ Adicionar</button></div></article>
+      <article class="product"><h3>XBacon artesanal 120g</h3><p>Pão de brioche, bife artesanal, bacon, queijo, alface, tomate, batata palha, cheddar e catupiry.</p><div class="price-row"><span class="price">R$ 24,90</span><button class="add" onclick="add('XBacon artesanal 120g',24.90)">+ Adicionar</button></div></article>
+      <article class="product"><h3>XEggBacon artesanal 120g</h3><p>Pão de brioche, bife artesanal, queijo, ovo, bacon, alface, tomate, batata palha, cheddar e catupiry.</p><div class="price-row"><span class="price">R$ 27,90</span><button class="add" onclick="add('XEggBacon artesanal 120g',27.90)">+ Adicionar</button></div></article>
+      <article class="product"><h3>XTudo artesanal 120g</h3><p>Pão de brioche, bife artesanal, bacon, ovo, queijo, presunto, alface, tomate, batata palha, cheddar e catupiry.</p><div class="price-row"><span class="price">R$ 29,90</span><button class="add" onclick="add('XTudo artesanal 120g',29.90)">+ Adicionar</button></div></article>
+    </div>
+
+    <div class="section-head" style="margin-top:40px">
+      <div><div class="kicker">Cardápio</div><h2>Lanches clássicos</h2></div>
+      <p>Opções do cardápio de lanches enviado, com refrigerante 200ml acompanhando.</p>
+    </div>
+    <div class="products">
+      <article class="product"><h3>Hambúrguer</h3><p>Pão de hambúrguer, bife, alface, tomate e batata palha.</p><div class="price-row"><span class="price">R$ 14,90</span><button class="add" onclick="add('Hambúrguer',14.90)">+ Adicionar</button></div></article>
+      <article class="product"><h3>X Bacon</h3><p>Pão de hambúrguer, bife, bacon, alface, tomate, batata palha, cheddar e catupiry.</p><div class="price-row"><span class="price">R$ 19,90</span><button class="add" onclick="add('X Bacon',19.90)">+ Adicionar</button></div></article>
+      <article class="product"><h3>X Egg Bacon</h3><p>Pão de hambúrguer, 2 bifes, bacon, ovo, queijo, alface, tomate, batata palha, cheddar e catupiry.</p><div class="price-row"><span class="price">R$ 21,90</span><button class="add" onclick="add('X Egg Bacon',21.90)">+ Adicionar</button></div></article>
+      <article class="product"><h3>XTudo</h3><p>Pão de hambúrguer, 2 bifes, bacon, ovo, queijo, presunto, alface, tomate, batata palha, cheddar e catupiry.</p><div class="price-row"><span class="price">R$ 24,90</span><button class="add" onclick="add('XTudo',24.90)">+ Adicionar</button></div></article>
+      <article class="product"><h3>Pão com Pernil</h3><p>Pão fresquinho com pernil suculento.</p><div class="price-row"><span class="price">R$ 9,90</span><button class="add" onclick="add('Pão com Pernil',9.90)">+ Adicionar — não acompanha refri 200ml</button></div></article>
+    </div>
+
+    <div class="section-head" style="margin-top:40px">
+      <div><div class="kicker">Ofertas</div><h2>Combos da casa</h2></div>
+      <p>As promoções das artes também podem ser adicionadas ao carrinho.</p>
+    </div>
+    <div class="products">
+      <article class="product"><h3>2 X-tudo + Coca 1L</h3><p>Combo da promoção.</p><div class="price-row"><span class="price">R$ 49,90</span><button class="add" onclick="add('2 X-tudo + Coca 1L',49.90)">+ Adicionar</button></div></article>
+      <article class="product"><h3>2 X-bacon + Guaraná 1L</h3><p>Combo da promoção.</p><div class="price-row"><span class="price">R$ 39,90</span><button class="add" onclick="add('2 X-bacon + Guaraná 1L',39.90)">+ Adicionar</button></div></article>
+      <article class="product"><h3>2 Hambúrgueres + Coca 600ml</h3><p>Combo da promoção.</p><div class="price-row"><span class="price">R$ 29,90</span><button class="add" onclick="add('2 Hambúrgueres + Coca 600ml',29.90)">+ Adicionar</button></div></article>
+    </div>
+  </div>
+</section>
+
+<section id="sobre">
+  <div class="container about">
+    <img src="assets/fachada.jpg" alt="Fachada do Mistura Boa Restaurante">
+    <div class="about-copy">
+      <div class="kicker">Conheça o Mistura Boa</div>
+      <h2>Comida boa.<br><span style="color:var(--yellow)">Todo dia.</span></h2>
+      <p>Um restaurante com comida caseira, opções para o almoço e aquele sabor que faz o cliente voltar. O site foi pensado para facilitar o acesso ao cardápio e o pedido pelo WhatsApp.</p>
+      <div class="info">
+        <div class="info-card"><strong>WHATSAPP</strong><span>(31) 9717-1210</span></div>
+        <div class="info-card"><strong>INSTAGRAM</strong><span>@misturaboajm</span></div>
+        <div class="info-card"><strong>ENDEREÇO</strong><span><a href="https://www.google.com/maps/search/?api=1&query=Mistura+Boa+Restaurante%2C+Rua+Monte+Santo%2C+37%2C+Jo%C3%A3o+Monlevade%2C+MG" target="_blank" style="color:#fff;text-decoration:underline">Rua Monte Santo, nº 37<br>Centro - Carneirinhos<br>João Monlevade - MG</a></span></div>
+      </div>
+      <div class="actions">
+        <a class="btn btn-primary" href="https://wa.me/553197171210?text=Olá%2C%20Mistura%20Boa!%20Gostaria%20de%20fazer%20um%20pedido." target="_blank">FAZER PEDIDO</a>
+        <a class="btn btn-secondary" href="https://www.google.com/maps/search/?api=1&query=Mistura+Boa+Restaurante%2C+Rua+Monte+Santo%2C+37%2C+Jo%C3%A3o+Monlevade%2C+MG" target="_blank">📍 COMO CHEGAR</a><a class="btn btn-secondary" href="https://instagram.com/misturaboajm" target="_blank">INSTAGRAM</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">© 2026 Mistura Boa Restaurante · Comida boa todo dia.</div>
+</footer>
+
+<div class="cart" id="cart">
+  <div class="cart-top"><strong>🛒 Seu pedido</strong><span class="cart-count" id="cartCount">0 itens</span></div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-total"><span>Total</span><span id="cartTotal">R$ 0,00</span></div>
+  <button onclick="checkout()">ENVIAR PEDIDO PELO WHATSAPP</button>
+</div>
+
+<a class="floating" href="https://wa.me/553197171210?text=Olá%2C%20Mistura%20Boa!%20Quero%20fazer%20um%20pedido." target="_blank">💬 WhatsApp</a>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <h3>Finalizar pedido</h3>
+    <p>Preencha seus dados e o WhatsApp abrirá com o pedido pronto.</p>
+    <input id="name" placeholder="Seu nome">
+    <input id="table" placeholder="Mesa ou observação (opcional)">
+    <div class="modal-actions">
+      <button class="cancel" onclick="closeModal()">Voltar</button>
+      <button class="send" onclick="sendOrder()">Enviar no WhatsApp</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="dayModal">
+  <div class="modal-box">
+    <div style="display:flex;justify-content:space-between;gap:15px;align-items:start">
+      <div>
+        <div class="kicker" id="dayKicker">PRATO DO DIA</div>
+        <h3 id="dayTitle">Prato do dia</h3>
+      </div>
+      <button onclick="closeDay()" style="border:0;background:#2a2a2a;color:#fff;border-radius:10px;width:38px;height:38px;font-size:20px;cursor:pointer">×</button>
+    </div>
+    <div id="dayContent" style="margin:12px 0 18px"></div>
+    <div style="padding:14px;border:1px solid rgba(255,196,0,.35);border-radius:12px;background:#0d0d0d">
+      <strong style="color:#ffc400">SELF-SERVICE: R$ 55,90/kg</strong>
+      <p style="margin:6px 0 0;color:#aaa;font-size:11px">O valor é calculado conforme o peso servido na balança.</p>
+    </div>
+    <div class="modal-actions" style="margin-top:15px">
+      <button class="cancel" onclick="closeDay()">Fechar</button>
+      <a class="send" style="display:flex;align-items:center;justify-content:center;text-decoration:none" href="https://wa.me/553197171210?text=Olá%2C%20Mistura%20Boa!%20Quero%20saber%20mais%20sobre%20o%20prato%20do%20dia." target="_blank">Perguntar no WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const cart=[];
+  const money=v=>v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+  function add(name,price){
+      const existing=cart.find(i=>i.name===name);
+      if(existing) existing.qty++;
+      else cart.push({name,price,qty:1});
+      renderCart();
+    }
+    function changeQty(index,delta){
+      cart[index].qty+=delta;
+      if(cart[index].qty<=0) cart.splice(index,1);
+      renderCart();
+    }
+  function renderCart(){
+    const box=document.getElementById('cart'), items=document.getElementById('cartItems');
+    document.getElementById('cartCount').textContent=`${cart.length} ${cart.length===1?'item':'itens'}`;
+    document.getElementById('cartTotal').textContent=money(cart.reduce((s,i)=>s+(i.price*i.qty),0));
+    items.innerHTML=cart.map((i,n)=>`<div class="cart-item"><span>${i.qty}x ${i.name}</span><div style="display:flex;align-items:center;gap:6px"><button onclick="changeQty(${n},-1)" style="border:0;background:#2a2a2a;color:#fff;border-radius:7px;width:28px;height:28px;cursor:pointer">−</button><strong>${money(i.price*i.qty)}</strong><button onclick="changeQty(${n},1)" style="border:0;background:#c9161d;color:#fff;border-radius:7px;width:28px;height:28px;cursor:pointer">+</button></div></div>`).join('');
+    box.classList.toggle('show',cart.length>0);
+  }
+  function checkout(){if(!cart.length)return;document.getElementById('modal').classList.add('open')}
+  function closeModal(){document.getElementById('modal').classList.remove('open')}
+  function sendOrder(){
+    const name=document.getElementById('name').value.trim()||'Cliente';
+    const table=document.getElementById('table').value.trim();
+    let msg=`Olá, Mistura Boa! 👋%0A%0AQuero fazer um pedido:%0A`;
+    cart.forEach(i=>msg+=`• ${i.qty}x ${i.name} — ${money(i.price*i.qty)}%0A`);
+    const total=cart.reduce((s,i)=>s+(i.price*i.qty),0);
+    msg+=`%0A*Total: ${money(total)}*%0A%0ANome: ${encodeURIComponent(name)}`;
+    if(table)msg+=`%0AMesa/Obs.: ${encodeURIComponent(table)}`;
+    window.open(`https://wa.me/553197171210?text=${msg}`,'_blank');
+  }
+  const dayMenus={
+  'Segunda-feira':['Arroz','Feijão','Maionese','Macarronada','Bife de porco ou boi','Salada'],
+  'Terça-feira':['Arroz','Feijão','Macarrão alho e óleo','Purê de batata','Bife de porco','Salada'],
+  'Quarta-feira':['Arroz','Feijão','Macarrão alho e óleo','Purê de batata','Bife de porco','Salada'],
+  'Quinta-feira':['Arroz','Feijão','Salpicão','Macarronada','Bife de porco','Salada'],
+  'Sexta-feira':['Arroz','Feijão','Torresmo','Farofa','Couve','Laranja'],
+  'Sábado':['Arroz','Tropeiro','Bife de porco','Salada']
+};
+function openDay(day){
+  document.getElementById('dayTitle').textContent=day;
+  document.getElementById('dayContent').innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      ${dayMenus[day].map(item=>`<div style="padding:11px 12px;border-radius:10px;background:#202020;font-size:12px"><span style="color:#c9161d;font-weight:900">✓</span> ${item}</div>`).join('')}
+    </div>`;
+  document.getElementById('dayModal').classList.add('open');
+}
+function closeDay(){document.getElementById('dayModal').classList.remove('open')}
+document.getElementById('dayModal').addEventListener('click',e=>{if(e.target.id==='dayModal')closeDay()});
+</script>
+
+</body>
+</html>
